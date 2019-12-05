@@ -1,0 +1,24 @@
+{
+    "name": "soulman",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kalmontee/Soulman.git"
+    },
+    "author": "Kelvin Almonte",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/kalmontee/Soulman/issues"
+    },
+    "homepage": "https://github.com/kalmontee/Soulman#readme",
+    "dependencies": {
+        "express": "^4.17.1",
+        "mysql": "^2.17.1"
+    }
+}
