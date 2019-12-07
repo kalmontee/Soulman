@@ -1,9 +1,10 @@
 // Dependencies
 const express = require("express");
-const mysql = require("mysql");
+const path = require("path");
 const app = express();
 
-app.use(express.static("public"));
+// Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static(path.join(__dirname, "public")));
 
 // Setting the port for the application
 const PORT = process.env.PORT || 3000;
@@ -12,23 +13,9 @@ const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const connection = mysql.createConnection({
-    host: "localhost",
-    port: 3306,
-    user: "root",
-    password: "password",
-    database: "burgers_db",
-});
+const routes = require("./controllers/burgers_controller.js");
 
-connection.connect(err => {
-    if (err) {
-        console.err(`Error connecting: ${err.stack}`);
-        return;
-    }
-    console.log(`Connected as id ${connection.threadId}`);
-});
-
-app.get("/", (req, res) => res.sendFile(path.join(__dirname, "public/index.html")));
+app.use(routes);
 
 // Begin our server to listen to client request
 app.listen(PORT, () => console.log(`Server listening on: http://locahost:${PORT}`));

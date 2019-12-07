@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- CSS Link -->
+    <!-- <link rel="stylesheet" href="assets/css/reset.css"> -->
+    <link rel="stylesheet" href="assets/css/burger_style.css">
+    <!-- JS & jQuery -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="assets/js/burgers.js"></script>
+    <title>Eat-Da-Burger!!</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Eat-Da-Burger!</h1>
+                <p class="lead">Type a burger, save it, devour it, then delete! .</p>
+            </div>
+        </div>
+
+        <section>
+            <nav>
+                <h2>Burgers I want to devour</h2>
+                <ul id="burgersMenu"></ul>
+            </nav>
+            <aside>
+                <h2>Devour burgers. Yummy!!</h2>
+                <ul id="burgersDevour"></ul>
+            </aside>
+        </section>
+
+        <div class="form-group">
+            <form id="addBurger">
+                <label for="burger_name">Type a burger:</label>
+                <input type="text" id="burger_name" name="burger">
+                <!-- <input type="hidden" id="devoured" name="devoured" true> -->
+                <button type="submit" class="btn btn-success">Add Burger</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
