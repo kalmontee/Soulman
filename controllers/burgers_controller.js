@@ -13,16 +13,19 @@ router.get("/burgers", (req, res) => {
 });
 
 // I BELIEVE THE BUG IS COMING FROM HERE!!!!
+
 router.post("/burgers", (req, res) => {
+    console.log(req.body)
     burger.create([
-        "burger_name", "devoured" // removed devoured
+        "burger_name", "devoured"
     ], [
-        req.body.burger_name, req.body.devoured // I removed req.body.devoured
+        req.body.burger, req.body.devoured
     ], (result) => {
         res.json({ id: result.insert.id });
     });
 });
 
+// Send request to update the client
 router.put("/burgers/:id", (req, res) => {
     let condition = "id = " + req.params.id;
     // console.log("condition", condition);
@@ -38,6 +41,7 @@ router.put("/burgers/:id", (req, res) => {
     });
 });
 
+// Delete item
 router.delete("burgers/:id", (req, res) => {
     let condition = "id = " + req.params.id;
 

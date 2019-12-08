@@ -34,14 +34,13 @@ $(document).ready(function() {
     $("#addBurger").on("submit", function(event) {
         event.preventDefault();
 
-        console.log("Working?"); // Testing
-
         let newBurger = {
             burger: $("#burger_name").val().trim(),
-            // devoured: $("#devoured").val().trim()
+            devoured: true
         }
 
         console.log("Added new burger to the menu");
+        console.log(newBurger)
 
         $.ajax("/burgers", {
             type: "POST",
@@ -55,19 +54,19 @@ $(document).ready(function() {
     });
 
 
-    $(document).on("click", ".delete", function(event) {
-        let burgerid = $(this).data("id");
+    // $(document).on("click", ".delete", function(event) {
+    //     let burgerid = $(this).data("id");
 
-        console.log("working??");
+    //     console.log("working??");
 
-        $.ajax("/burgers/" + burgerid, {
-            type: "DELETE",
+    //     $.ajax("/burgers/" + burgerid, {
+    //         type: "DELETE",
 
-        }).then(function() {
-            console.log("Deleted burger ", burgerid);
-            location.reload();
-        });
-    });
+    //     }).then(function() {
+    //         console.log("Deleted burger ", burgerid);
+    //         location.reload();
+    //     });
+    // });
 
 
 });

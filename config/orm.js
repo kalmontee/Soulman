@@ -6,6 +6,8 @@ function printQuestionMarks(num) {
     for (let i = 0; i < num; i++) {
         arr.push("?");
     }
+
+    return arr;
 }
 
 function objToSql(obj) {
@@ -35,6 +37,9 @@ const orm = {
     },
 
     create(table, cols, vals, cb) {
+        console.log("below")
+        console.log(vals)
+        console.log("HEREE")
         let queryString = 'INSERT INTO ' + table;
 
         queryString += " (";
@@ -42,10 +47,14 @@ const orm = {
         queryString += ") ";
         queryString += "VALUES (";
         queryString += printQuestionMarks(vals.length);
-        queryString += ") ";
+        queryString += ")";
+
+        console.log(queryString);
 
         connection.query(queryString, vals, (err, results) => {
             if (err) throw err;
+
+            console.log(results)
             cb(results);
         });
     }
