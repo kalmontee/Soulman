@@ -7,7 +7,7 @@ function printQuestionMarks(num) {
         arr.push("?");
     }
 
-    return arr;
+    return arr.toString();
 }
 
 function objToSql(obj) {
@@ -18,7 +18,6 @@ function objToSql(obj) {
 
         if (Object.hasOwnProterty.call(obj, key)) {
             if (typeof value === "string") {
-                // value = "'" + value + "'";
                 value += "'";
             }
             arr.push(key + "=" + value);
@@ -37,9 +36,6 @@ const orm = {
     },
 
     create(table, cols, vals, cb) {
-        console.log("below")
-        console.log(vals)
-        console.log("HEREE")
         let queryString = 'INSERT INTO ' + table;
 
         queryString += " (";
@@ -49,12 +45,35 @@ const orm = {
         queryString += printQuestionMarks(vals.length);
         queryString += ")";
 
-        console.log(queryString);
-
         connection.query(queryString, vals, (err, results) => {
             if (err) throw err;
+            cb(results);
+        });
+    },
 
-            console.log(results)
+    update(table, objColVals, condition, cb) {
+        let queryString = "UPDATE " + table;
+
+        queryString += " SET ";
+        queryString += objToSql(objColVals);
+        queryString += " WHERE ";
+        queryString += condition;
+
+        console.log(queryString);
+        connection.query(queryString, (err, results) => {
+            if (err) throw err;
+            cb(results);
+        });
+    },
+
+    delete(table, condition, cb) {
+        let queryString = 'DELETE FROM ' + table;
+
+        queryString += ' WHERE ';
+        queryString += condition;
+
+        connection.query(queryString, (err, results) => {
+            if (err) throw err;
             cb(results);
         });
     }

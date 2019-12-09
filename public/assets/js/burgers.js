@@ -10,24 +10,38 @@ $(document).ready(function() {
         let len = burgers.length;
 
         for (let i = 0; i < len; i++) {
+
+            // Create two seperate buttons. One for devour and the other one for delete.
+            // Devour button should append burgersMenu and delete should append burgersDevour.
+
             let new_elem =
                 "<li><p>" +
                 burgers[i].burger_name +
-                "<button class='devourBurger delete' data-id'" +
+                "<button class='devourBurger' data-id='" +
                 burgers[i].id +
                 "' data-devour='" +
                 !burgers[i].devoured +
-                "'>"
+                "'>";
 
             if (burgers[i].devoured) {
-                new_elem += "Devour";
-                burgersMenu.append(new_elem);
-            } else {
                 new_elem += "Delete";
                 burgersDevour.append(new_elem);
+            } else {
+                new_elem += "Devour";
+                burgersMenu.append(new_elem);
             }
 
             new_elem += "</button></p></li>";
+
+            // new_elem +=
+            //     "<button class='delete' data-id='" +
+            //     burgers[i].id +
+            //     "'>Delete</button></p></li>"
+
+            // if (!burgers[i].devoured) {
+            //     burgersMenu.append(new_elem);
+
+            // }
         }
     });
 
@@ -36,7 +50,7 @@ $(document).ready(function() {
 
         let newBurger = {
             burger: $("#burger_name").val().trim(),
-            devoured: true
+            devoured: false
         }
 
         console.log("Added new burger to the menu");
@@ -53,20 +67,43 @@ $(document).ready(function() {
         });
     });
 
+    $(document).on("click", ".devourBurger", function(event) {
+        event.preventDefault();
 
-    // $(document).on("click", ".delete", function(event) {
-    //     let burgerid = $(this).data("id");
+        let id = $(this).data("id");
+        let devourBurger = $(this).data("devour") === true;
 
-    //     console.log("working??");
+        let devoured = {
+            devoured: devourBurger
+        };
 
-    //     $.ajax("/burgers/" + burgerid, {
-    //         type: "DELETE",
+        // Send the PUT request.
+        $.ajax("/burgers/" + id, {
+            type: "PUT",
+            data: JSON.stringify(devoured),
+            dataType: 'json',
+            contentType: 'application/json'
+        }).then(function() {
+            console.log("changed burger to", devourBurger);
+            // Reload the page to get the updated list
+            location.reload();
+        });
+    });
 
-    //     }).then(function() {
-    //         console.log("Deleted burger ", burgerid);
-    //         location.reload();
-    //     });
-    // });
+
+    $(document).on("click", ".delete", function(event) {
+        event.preventDefault();
+
+        let burgerid = $(this).data("id");
+
+        $.ajax("/burgers/" + burgerid, {
+            type: "DELETE",
+
+        }).then(function() {
+            console.log("Deleted burger ", burgerid);
+            location.reload();
+        });
+    });
 
 
 });

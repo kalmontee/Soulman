@@ -8,32 +8,29 @@ router.get("/", (req, res) => res.sendFile(path.join(__dirname, "public/index.ht
 router.get("/burgers", (req, res) => {
     burger.all(data => {
         res.json({ burgers: data });
-        // console.log(data);
+        console.log(data);
     });
 });
 
-// I BELIEVE THE BUG IS COMING FROM HERE!!!!
-
 router.post("/burgers", (req, res) => {
-    console.log(req.body)
     burger.create([
         "burger_name", "devoured"
     ], [
         req.body.burger, req.body.devoured
     ], (result) => {
-        res.json({ id: result.insert.id });
+        res.json({ id: result.insertId });
     });
 });
 
 // Send request to update the client
 router.put("/burgers/:id", (req, res) => {
     let condition = "id = " + req.params.id;
-    // console.log("condition", condition);
+    console.log("condition", condition);
 
     burger.update({
         devoured: req.body.devoured
     }, condition, (result) => {
-        if (result == 0) {
+        if (result.changedRows == 0) {
             return res.status(404).end();
         } else {
             res.json({ id: req.params.id });
@@ -42,7 +39,7 @@ router.put("/burgers/:id", (req, res) => {
 });
 
 // Delete item
-router.delete("burgers/:id", (req, res) => {
+router.delete("/burgers/:id", (req, res) => {
     let condition = "id = " + req.params.id;
 
     burger.delete(condition, (result) => {

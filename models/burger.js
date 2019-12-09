@@ -5,7 +5,6 @@ const burger = {
         orm.all("burgers", (res) => cb(res));
     },
     create(cols, vals, cb) {
-        console.log(vals)
         orm.create("burgers", cols, vals, (res) => cb(res));
     },
     update(objColVals, condition, cb) {
