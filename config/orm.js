@@ -10,15 +10,15 @@ function printQuestionMarks(num) {
     return arr.toString();
 }
 
-function objToSql(obj) {
+function objToSql(ob) {
     let arr = [];
 
-    for (let key in obj) {
-        let value = obj[key];
+    for (let key in ob) {
+        let value = ob[key];
 
-        if (Object.hasOwnProterty.call(obj, key)) {
+        if (Object.hasOwnProperty.call(ob, key)) {
             if (typeof value === "string") {
-                value += "'";
+                value = `'${value}'`;
             }
             arr.push(key + "=" + value);
         }

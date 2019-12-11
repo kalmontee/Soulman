@@ -6,49 +6,34 @@ const burger = require("../models/burger.js");
 router.get("/", (req, res) => res.sendFile(path.join(__dirname, "public/index.html")));
 
 router.get("/burgers", (req, res) => {
-    burger.all(data => {
-        res.json({ burgers: data });
-        console.log(data);
-    });
+    burger.all(data => res.json({ burgers: data }));
 });
 
+// Send response back to the client to create a burger
 router.post("/burgers", (req, res) => {
     burger.create([
         "burger_name", "devoured"
     ], [
         req.body.burger, req.body.devoured
-    ], (result) => {
-        res.json({ id: result.insertId });
-    });
+    ], (results) => res.json({ id: results.insertId }));
 });
 
-// Send request to update the client
+// Send response back to the client to update
 router.put("/burgers/:id", (req, res) => {
     let condition = "id = " + req.params.id;
     console.log("condition", condition);
 
     burger.update({
         devoured: req.body.devoured
-    }, condition, (result) => {
-        if (result.changedRows == 0) {
-            return res.status(404).end();
-        } else {
-            res.json({ id: req.params.id });
-        }
-    });
+
+    }, condition, (results) => results.changedRows == 0 ? res.status(404).end() : res.json({ id: req.params.id }));
 });
 
-// Delete item
+// Send response back to the client to delete a burger
 router.delete("/burgers/:id", (req, res) => {
     let condition = "id = " + req.params.id;
 
-    burger.delete(condition, (result) => {
-        if (result.affectedRows == 0) {
-            return res.status(404).end();
-        } else {
-            res.status(200).end();
-        }
-    });
+    burger.delete(condition, (results) => results.affectedRows == 0 ? res.status(404).end() : res.status(200).end());
 });
 
 module.exports = router;
