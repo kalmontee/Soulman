@@ -12,7 +12,7 @@ ORM - Object Relational Mapper
 
 To view the app go to: 
 
-https://thawing-everglades-16049.herokuapp.com/
+[deliciousburger.herokuapp.com](https://deliciousburger.herokuapp.com/)
 
 You should see something like this: 
 ![Screenshot (85)](https://user-images.githubusercontent.com/52462582/70647439-f1371a80-1c16-11ea-8367-1f6821005508.png)
